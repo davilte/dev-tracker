@@ -9,13 +9,14 @@ import { useRepos } from "../../hooks/useRepos";
 export default function UserReposScreen() {
   const { username } = useLocalSearchParams<{ username: string }>();
   const router = useRouter();
-  const { repos, isLoading, isError, sortOrder, handleSortChange } = useRepos(username);
+  const { repos, isLoading, isError, sortOrder, handleSortChange } =
+    useRepos(username);
 
   function handleBackPress() {
     router.back();
   }
 
-  function handleRepoPress(repo: typeof repos[0]) {
+  function handleRepoPress(repo: (typeof repos)[0]) {
     router.push({
       pathname: "/repo/[fullname]",
       params: { fullname: repo.full_name },
@@ -24,9 +25,7 @@ export default function UserReposScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaContainer
-        className="flex-1 bg-gray-50 dark:bg-gray-900 items-center justify-center"
-      >
+      <SafeAreaContainer className="flex-1 bg-gray-50 dark:bg-gray-900 items-center justify-center">
         <ActivityIndicator size="large" color="#2563EB" />
       </SafeAreaContainer>
     );
@@ -34,9 +33,7 @@ export default function UserReposScreen() {
 
   if (isError) {
     return (
-      <SafeAreaContainer
-        className="flex-1 bg-gray-50 dark:bg-gray-900 items-center justify-center px-4"
-      >
+      <SafeAreaContainer className="flex-1 bg-gray-50 dark:bg-gray-900 items-center justify-center px-4">
         <Text className="text-gray-900 dark:text-gray-100 text-lg text-center">
           Failed to load repositories
         </Text>
@@ -45,23 +42,20 @@ export default function UserReposScreen() {
   }
 
   return (
-    <SafeAreaContainer
-      className="flex-1 bg-white dark:bg-gray-800"
-    >
+    <SafeAreaContainer className="flex-1 bg-white dark:bg-gray-800">
       {/* Header with Back Button */}
       <View className="bg-white dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex-row items-center">
-        <CircularButton
-          onPress={handleBackPress}
-          icon="arrow-back"
-          size={40}
-        />
+        <CircularButton onPress={handleBackPress} icon="arrow-back" size={40} />
         <Text className="text-lg font-semibold text-gray-900 dark:text-gray-100 ml-3">
           {username}'s Repositories
         </Text>
       </View>
 
       {/* Sort Selector */}
-      <ReposSortSelector currentSort={sortOrder} onSortChange={handleSortChange} />
+      <ReposSortSelector
+        currentSort={sortOrder}
+        onSortChange={handleSortChange}
+      />
 
       {/* Repositories List */}
       {repos.length === 0 ? (
@@ -85,4 +79,3 @@ export default function UserReposScreen() {
     </SafeAreaContainer>
   );
 }
-
