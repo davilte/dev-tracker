@@ -42,9 +42,16 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchUser.pending, (state) => {
+        state.status = 'loading';
+      })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.data = action.payload;
         state.status = 'succeeded';
+      })
+      .addCase(fetchUser.rejected, (state) => {
+        state.status = 'failed';
+        state.data = null;
       })
       .addCase(searchUsers.pending, (state) => {
         state.searchStatus = 'loading';
