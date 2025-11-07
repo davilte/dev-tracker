@@ -1,4 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import Icon from "@expo/vector-icons/MaterialIcons";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
 interface ButtonProps {
   title: string;
@@ -6,6 +7,8 @@ interface ButtonProps {
   variant?: "primary" | "secondary" | "outline";
   disabled?: boolean;
   loading?: boolean;
+  icon?: keyof typeof Icon.glyphMap;
+  iconPosition?: "left" | "right";
 }
 
 export function Button({
@@ -14,6 +17,8 @@ export function Button({
   variant = "primary",
   disabled = false,
   loading = false,
+  icon,
+  iconPosition = "left",
 }: ButtonProps) {
   const baseStyles = "px-6 py-3 rounded-lg items-center justify-center min-h-[48px]";
   
@@ -46,7 +51,25 @@ export function Button({
           size="small"
         />
       ) : (
-        <Text className={textStyles[variant]}>{title}</Text>
+        <View className="flex-row items-center">
+          {icon && iconPosition === "left" && (
+            <Icon
+              name={icon}
+              size={20}
+              color={variant === "outline" ? "#2563EB" : "#FFFFFF"}
+            />
+          )}
+          <Text className={`${textStyles[variant]} ${icon && iconPosition === "left" ? "ml-2" : ""} ${icon && iconPosition === "right" ? "mr-2" : ""}`}>
+            {title}
+          </Text>
+          {icon && iconPosition === "right" && (
+            <Icon
+              name={icon}
+              size={20}
+              color={variant === "outline" ? "#2563EB" : "#FFFFFF"}
+            />
+          )}
+        </View>
       )}
     </TouchableOpacity>
   );

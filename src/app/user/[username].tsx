@@ -19,10 +19,8 @@ export default function UserDetailsScreen() {
       pathname: "/repos/[username]",
       params: { username },
     });
-  }
 
-  if (isLoading) {
-    return (
+  return (
       <SafeAreaContainer
         insetTop={false}
         className="flex-1 bg-gray-50 dark:bg-gray-900 items-center justify-center"
@@ -41,6 +39,13 @@ export default function UserDetailsScreen() {
         <Text className="text-gray-900 dark:text-gray-100 text-lg">
           User not found
         </Text>
+        <View className="absolute top-12 left-4 z-10">
+          <CircularButton
+            onPress={handleBackPress}
+            icon="arrow-back"
+            size={44}
+          />
+        </View>
       </SafeAreaContainer>
     );
   }

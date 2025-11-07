@@ -15,6 +15,13 @@ export default function UserReposScreen() {
     router.back();
   }
 
+  function handleRepoPress(repo: typeof repos[0]) {
+    router.push({
+      pathname: "/repo/[fullname]",
+      params: { fullname: repo.full_name },
+    });
+  }
+
   if (isLoading) {
     return (
       <SafeAreaContainer
@@ -39,7 +46,7 @@ export default function UserReposScreen() {
 
   return (
     <SafeAreaContainer
-      className="flex-1 bg-gray-50 dark:bg-gray-900"
+      className="flex-1 bg-white dark:bg-gray-800"
     >
       {/* Header with Back Button */}
       <View className="bg-white dark:bg-gray-800 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex-row items-center">
@@ -66,10 +73,13 @@ export default function UserReposScreen() {
       ) : (
         <FlatList
           data={repos}
-          renderItem={({ item }) => <RepoItem repo={item} />}
+          renderItem={({ item }) => (
+            <RepoItem repo={item} onPress={() => handleRepoPress(item)} />
+          )}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={{ padding: 16 }}
           showsVerticalScrollIndicator={false}
+          className="bg-gray-50 dark:bg-gray-900"
         />
       )}
     </SafeAreaContainer>

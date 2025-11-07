@@ -1,14 +1,21 @@
 import Icon from "@expo/vector-icons/MaterialIcons";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { GithubRepo } from "../types/github";
 
 interface RepoItemProps {
   repo: GithubRepo;
+  onPress?: () => void;
 }
 
-export function RepoItem({ repo }: RepoItemProps) {
+export function RepoItem({ repo, onPress }: RepoItemProps) {
+  const Component = onPress ? TouchableOpacity : View;
+  
   return (
-    <View className="bg-white dark:bg-gray-800 p-4 mb-3 rounded-lg border border-gray-200 dark:border-gray-700">
+    <Component
+      onPress={onPress}
+      activeOpacity={0.7}
+      className="bg-white dark:bg-gray-800 p-4 mb-3 rounded-lg border border-gray-200 dark:border-gray-700"
+    >
       {/* Repo Name */}
       <Text className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
         {repo.name}
@@ -59,7 +66,7 @@ export function RepoItem({ repo }: RepoItemProps) {
           </Text>
         </View>
       </View>
-    </View>
+    </Component>
   );
 }
 
