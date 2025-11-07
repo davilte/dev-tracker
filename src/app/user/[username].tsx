@@ -15,7 +15,10 @@ export default function UserDetailsScreen() {
   }
 
   function handleSeeRepositories() {
-    console.log("button clicked");
+    router.push({
+      pathname: "/repos/[username]",
+      params: { username },
+    });
   }
 
   if (isLoading) {
