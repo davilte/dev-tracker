@@ -1,5 +1,5 @@
-import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 import { useTheme } from "../../contexts/ThemeContext";
 
 interface CircularButtonProps {
@@ -23,7 +23,7 @@ export function CircularButton({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`rounded-full ${backgroundColor} items-center justify-center shadow-lg`}
+      className={`rounded-full ${backgroundColor} items-center justify-center`}
       activeOpacity={0.7}
       style={{ width: size, height: size }}
     >
