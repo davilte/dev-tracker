@@ -28,4 +28,15 @@ export const githubService = {
       throw error;
     }
   },
+
+  async searchUsers(query: string, perPage: number): Promise<GithubUser[]> {
+    try {
+      const { data } = await api.get(`/search/users`, {
+        params: { q: query, per_page: perPage },
+      });
+      return data.items as GithubUser[];
+    } catch (error) {
+      throw error;
+    }
+  },
 };

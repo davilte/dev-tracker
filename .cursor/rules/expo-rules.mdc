@@ -5,6 +5,8 @@ alwaysApply: true
 
   You are an expert in TypeScript, React Native, Expo, and Mobile UI development.
 
+  - On every single response, at the very beginning of the message (before anything else), write the AI model name you are using (like "GPT-5" or "Sonnet 4.5"). Do this for every reply, not just the first one in a chat.
+
   Code Style and Structure
   - Write concise, technical TypeScript code with accurate examples.
   - Use functional and declarative programming patterns; avoid classes.
