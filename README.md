@@ -1,50 +1,291 @@
-# Welcome to your Expo app 👋
+# DevTracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile desenvolvido com React Native e Expo para buscar e visualizar informações de usuários e repositórios do GitHub.
 
-## Get started
+## 📱 Sobre o projeto
 
-1. Install dependencies
+O DevTracker é uma aplicação mobile multiplataforma (iOS e Android) que permite aos usuários buscar desenvolvedores no GitHub, visualizar seus perfis, listar seus repositórios e acessar detalhes completos de cada repositório. O projeto foi desenvolvido utilizando as melhores práticas de desenvolvimento mobile com Expo, TypeScript e React Native.
 
+### Principais características técnicas:
+- **Framework**: Expo SDK 54 com React Native 0.81.5
+- **Linguagem**: TypeScript com strict mode
+- **Roteamento**: Expo Router (file-based routing)
+- **Gerenciamento de Estado**: Redux Toolkit
+- **Estilização**: NativeWind (Tailwind CSS para React Native)
+- **Arquitetura**: Nova arquitetura do React Native habilitada
+- **Tema**: Suporte completo a modo claro/escuro com detecção automática
+
+## ✨ Funcionalidades
+
+### 🔍 Busca de Usuários
+- Busca em tempo real de usuários do GitHub
+- Sugestões automáticas enquanto digita (debounce implementado)
+- Lista de resultados com avatar e informações básicas
+- Navegação direta para o perfil do usuário
+
+### 👤 Perfil de Usuário
+- Visualização completa do perfil do desenvolvedor
+- Avatar em destaque
+- Informações pessoais (nome, email, bio)
+- Estatísticas de seguidores e seguindo
+- Navegação para lista de repositórios
+
+### 📦 Lista de Repositórios
+- Lista todos os repositórios de um usuário
+- Ordenação por:
+  - Mais estrelas
+  - Menos estrelas
+  - Nome A-Z
+  - Nome Z-A
+- Interface otimizada com FlatList para performance
+- Navegação para detalhes do repositório
+
+### 📄 Detalhes do Repositório
+- Informações completas do repositório
+- Estatísticas (estrelas, forks, linguagem)
+- Descrição do projeto
+- Link para abrir no navegador
+- Status do repositório (aberto/fechado)
+
+### 🎨 Interface e UX
+- Modo escuro/claro com detecção automática do sistema
+- Menu lateral para configurações
+- Navegação intuitiva com botões de voltar
+- Loading states e tratamento de erros
+- Safe Area handling para diferentes dispositivos
+- Animações suaves e feedback háptico
+
+## 🏗️ Arquitetura
+
+### Estrutura de Pastas
+
+```
+src/
+├── api/              # Cliente Axios configurado para GitHub API
+├── app/              # Rotas do Expo Router (file-based routing)
+│   ├── index.tsx     # Rota inicial (redireciona para /search)
+│   ├── search.tsx    # Tela de busca
+│   ├── user/         # Rotas de usuário
+│   │   └── [username].tsx
+│   ├── repos/        # Rotas de repositórios
+│   │   └── [username].tsx
+│   └── repo/         # Rotas de detalhes de repositório
+│       └── [fullname].tsx
+├── components/       # Componentes reutilizáveis
+│   ├── ui/           # Componentes de UI base
+│   │   ├── Avatar.tsx
+│   │   ├── Button.tsx
+│   │   ├── CircularButton.tsx
+│   │   ├── SafeAreaContainer.tsx
+│   │   └── SearchInput.tsx
+│   ├── RepoItem.tsx
+│   ├── ReposSortSelector.tsx
+│   ├── SearchForm.tsx
+│   ├── SearchHeader.tsx
+│   ├── SideMenu.tsx
+│   ├── UserCard.tsx
+│   ├── UserListItem.tsx
+│   └── UserSuggestionsList.tsx
+├── contexts/         # Contextos React
+│   └── ThemeContext.tsx
+├── hooks/            # Custom hooks
+│   ├── useDebouncedValue.ts
+│   ├── useGithubSearch.ts
+│   ├── useRepoDetails.ts
+│   ├── useRepos.ts
+│   └── useUserDetails.ts
+├── services/         # Serviços de API
+│   └── githubService.ts
+├── store/            # Redux store e slices
+│   ├── index.ts
+│   ├── reposSlice.ts
+│   └── userSlice.ts
+└── types/            # Definições TypeScript
+    └── github.d.ts
+```
+
+### Fluxo de Dados
+
+1. **API Layer**: Cliente Axios configurado em `src/api/github.ts`
+2. **Service Layer**: Funções de serviço em `src/services/githubService.ts`
+3. **State Management**: Redux Toolkit para estado global
+4. **Custom Hooks**: Hooks personalizados para lógica de negócio
+5. **Components**: Componentes funcionais com TypeScript
+
+### Tecnologias e Bibliotecas
+
+#### Core
+- **Expo SDK 54**: Framework para desenvolvimento mobile
+- **React Native 0.81.5**: Framework base
+- **React 19.1.0**: Biblioteca UI
+- **TypeScript 5.9.2**: Tipagem estática
+
+#### Navegação e Roteamento
+- **Expo Router 6.0.14**: Roteamento baseado em arquivos
+- **React Navigation 7.1.8**: Navegação nativa
+
+#### Estado e Dados
+- **Redux Toolkit 2.10.1**: Gerenciamento de estado
+- **React Redux 9.2.0**: Bindings React para Redux
+- **Axios 1.13.2**: Cliente HTTP
+
+#### UI e Estilização
+- **NativeWind 4.2.1**: Tailwind CSS para React Native
+- **Tailwind CSS 3.4.17**: Framework de utilitários CSS
+- **Expo Vector Icons**: Ícones
+
+
+## 🚀 Como rodar o projeto
+
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+- Expo CLI (instalado globalmente ou via npx)
+- Para desenvolvimento iOS: Xcode (apenas macOS)
+- Para desenvolvimento Android: Android Studio
+
+### Instalação
+
+1. **Clone o repositório**
+   ```bash
+   git clone <url-do-repositorio>
+   cd DevTracker
+   ```
+
+2. **Instale as dependências**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. **Inicie o servidor de desenvolvimento**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+   Ou use os comandos específicos:
+   ```bash
+   npm run android    # Para Android
+   npm run ios        # Para iOS (apenas macOS)
+   ```
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Executando em Dispositivos
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+#### Android
+- Conecte um dispositivo Android via USB com depuração USB habilitada, ou
+- Abra um emulador Android no Android Studio
+- Execute `npm run android` ou pressione `a` no terminal do Expo
 
-## Get a fresh project
+#### iOS
+- Abra o Simulador do iOS (apenas macOS)
+- Execute `npm run ios` ou pressione `i` no terminal do Expo
 
-When you're ready, run:
+
+### Scripts Disponíveis
 
 ```bash
-npm run reset-project
+npm start          # Inicia o servidor Expo
+npm run android    # Executa no Android
+npm run ios        # Executa no iOS
+npm run web        # Executa no navegador
+npm run lint       # Executa o linter
+npm test           # Executa os testes
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🌿 Fluxo de GitFlow usado
 
-## Learn more
+O projeto utiliza o **GitFlow** como estratégia de gerenciamento de branches. O fluxo está estruturado da seguinte forma:
 
-To learn more about developing your project with Expo, look at the following resources:
+### Branches Principais
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **`master`**: Branch de produção, contém apenas código estável e testado
+- **`develop`**: Branch de desenvolvimento, onde as features são integradas antes de ir para produção
 
-## Join the community
+### Branches de Feature
 
-Join our community of developers creating universal apps.
+Todas as novas funcionalidades são desenvolvidas em branches separadas seguindo o padrão:
+```
+feature/nome-da-feature
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Exemplo de branches criadas:**
+- `feature/structure` - Estrutura inicial do projeto
+- `feature/redux` - Configuração do Redux store
+- `feature/search` - Tela de busca e modo escuro
+- `feature/user-detail` - Tela de detalhes do usuário
+- `feature/repos` - Lista de repositórios com ordenação
+- `feature/repo-details` - Tela de detalhes do repositório
+
+
+### Padrão de Commits
+
+O projeto segue o padrão de commits convencionais:
+
+```
+tipo(escopo): descrição curta
+
+tipo: feat, fix, chore, docs, style, refactor, test
+escopo: api, store, components, hooks, etc.
+```
+
+**Exemplos de commits do projeto:**
+- `feat(structure): add project architecture and expo-router layout`
+- `feat(api): add GitHub axios client and TS types`
+- `feat(store): configure Redux store and user/repos slices`
+- `feat(search): implement search screen with suggestions and dark mode`
+- `feat(user-detail): implement user details screen`
+- `feat(repos): implement user repos flatlist with sorting`
+- `feat(repo-details): implement repo details screen`
+
+## 📝 Outras Informações Importantes
+
+### Configuração do Projeto
+
+- **Package Name (Android)**: `com.davilte.DevTracker`
+- **Bundle Identifier**: Configurado no `app.json`
+- **Nova Arquitetura**: Habilitada (`newArchEnabled: true`)
+- **React Compiler**: Habilitado experimentalmente
+- **Typed Routes**: Habilitado para type-safety nas rotas
+
+
+
+### Linting e Formatação
+
+O projeto utiliza ESLint e Prettier para manter a qualidade do código:
+
+```bash
+npm run lint
+```
+
+### Estrutura de Componentes
+
+Os componentes seguem uma arquitetura modular:
+- **UI Components**: Componentes base reutilizáveis em `components/ui/`
+- **Feature Components**: Componentes específicos de funcionalidades
+- **TypeScript**: Todos os componentes são tipados
+- **Functional Components**: Uso exclusivo de componentes funcionais
+
+### Performance
+
+- **FlatList**: Utilizado para listas longas (repositórios)
+- **Image Optimization**: Expo Image para carregamento otimizado
+- **Debounce**: Implementado na busca para reduzir requisições
+- **Memoization**: Componentes memoizados quando necessário
+
+### Acessibilidade
+
+- Suporte a Safe Area em todos os dispositivos
+- Suporte a modo escuro/claro
+- Componentes acessíveis com props nativas do React Native
+
+## 📚 Recursos e Documentação
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Documentation](https://reactnative.dev/)
+- [Expo Router Documentation](https://docs.expo.dev/router/introduction/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [NativeWind Documentation](https://www.nativewind.dev/)
+- [GitHub API Documentation](https://docs.github.com/en/rest)
+
+
+---

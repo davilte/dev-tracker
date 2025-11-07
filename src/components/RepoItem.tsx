@@ -62,7 +62,7 @@ export function RepoItem({ repo, onPress }: RepoItemProps) {
         <View className="flex-row items-center">
           <View className="w-2 h-2 rounded-full bg-green-500 mr-1" />
           <Text className="text-sm text-gray-600 dark:text-gray-400">
-            Open
+            Open {/* There is no status field in the API */}
           </Text>
         </View>
       </View>

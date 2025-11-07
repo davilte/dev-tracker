@@ -111,7 +111,7 @@ export default function RepoDetailsScreen() {
               <View className="flex-row items-center">
                 <View className="w-3 h-3 rounded-full bg-green-500 mr-2" />
                 <Text className="text-base text-gray-700 dark:text-gray-300">
-                  Open
+                  Open {/* There is no status field in the API */}
                 </Text>
               </View>
             </View>
